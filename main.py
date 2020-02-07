@@ -1,10 +1,13 @@
 #!/usr/bin/env python2
 
 import pygame
+from Field import Field
+from Tiles import Tiles
+from Frog import Frog
 import random
 
-WIDTH = 360
-HEIGHT = 480
+WIDTH = 1280
+HEIGHT = 720
 FPS = 30
 
 # Define Colors 
@@ -21,8 +24,9 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("<Your game>")
 clock = pygame.time.Clock()  ## For syncing the FPS
 
-## group all the sprites together for ease of update
-all_sprites = pygame.sprite.group()
+game = Field(Tiles(0))
+frog = Frog(5, 1, game)
+
 
 ## Game loop
 running = True
@@ -35,18 +39,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # 2 Update
-    all_sprites.update()
-
-    # 3 Draw/render
     screen.fill(BLACK)
 
-    all_sprites.draw(screen)
-    ########################
-
-    ### Your code comes here
-
-    ########################
+    game.draw(0, screen)
+    frog.draw(screen)
 
     ## Done after drawing everything to the screen
     pygame.display.flip()
